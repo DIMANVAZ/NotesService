@@ -1,16 +1,21 @@
 var express = require('express');
 var router = express.Router();
-const sequelize = require("../db/dbConnector.js");
+
+const {readAll} = require("../db/dbConnector.js");
+const {writeNote} = require("../db/dbConnector");
+let notesArray = [];
+
+router.post('/', function(req, res){
+
+    notesArray.push(req.body.noteText);
+    writeNote(req.body.noteText).then(r => console.log(r));
+    console.log(notesArray);
+    res.render('index', {notesArray})
+})
 
 /* GET home page. */
 router.get('/', async function (req, res, next) {
-    try {
-        await sequelize.authenticate();
-        console.log('Connection has been established successfully.');
-    } catch (error) {
-        console.error('Unable to connect to the database:', error);
-    }
-    res.render('index', {title: 'Сервис записей'});
+    res.render('index', {title: 'Сервис записей',notesArray});
 });
 
 module.exports = router;

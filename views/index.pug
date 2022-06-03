@@ -1,6 +1,15 @@
 extends head
 
 block content
-    p index
+    form(id="uploadForm" enctype="application/x-www-form-urlencoded" action="/" method="POST")
+        h1(class="h3 mb-3 fw-normal") Добавить заметку
+        div(class="form-floating")
+            input(type="text" name="noteText" class="form-control" id="noteText")
+            button(class="w-100 btn btn-lg btn-primary" type="submit") Добавить
+
+    ul
+        each note in notesArray
+            li #{note}
+
 
 
