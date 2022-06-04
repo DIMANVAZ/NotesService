@@ -11,7 +11,7 @@ let notesArray = [{
         updatedAt: '2022-06-03T21:31:02.215Z'
     },}];
 
-router.post('/', function(req, res){
+router.post('/', function(req, resp){
     const chunks = [];
     req.on('data', chunk => chunks.push(chunk));
     req.on('end', async () => {
@@ -24,34 +24,44 @@ router.post('/', function(req, res){
         if (body.type === 'noteText') { // если кнопка добавки текста
             Note.create({
                 text: body.data || 'Вы создали пустую заметку!'
-            })
-                .then(res => console.log('---write success---\n'))
-                .catch(err => console.log(err))
+                }).then(() => {
+                    console.log('added!!');
+                    Note.findAll().then(reso => {
+                        notesArray = [...reso];
+                        console.log('notesArray UPDATED!!!');
+                        //setTimeout(()=>{resp.render('index', {notesArray});},600)
+                    });
+                }).catch(err => console.log(err));
         }
+
         if (body.type === 'buttonId') { // если кнопка удаления
-            await Note.destroy({
+            Note.destroy({
                 where: {
                     id: body.data
                 }
-            });
+            }).then(() => {
+                console.log('deletedd!!');
+                Note.findAll().then(reso => {
+                    notesArray = [...reso];
+                    console.log('notesArray UPDATED!!!');
+                    //setTimeout(()=>{resp.render('index', {notesArray});},600)
+
+                });
+            }).catch(err => console.log(err))
         }
+        setTimeout(()=>{resp.render('index', {notesArray});},600)
     })
-    res.render('index', {notesArray})
 })
 
 // ИДЕЯ: если мы просто заходим - добываем список из БД
 // Если мы что-то меняем - сначала делаем операцию, потом добываем обновлённый список из БД и рисуем его
 
-router.get('/', async function (req, res, next) {
+router.get('/', async function (req, resp, next) {
     await Note.findAll()
-        .then(res => {
-            notesArray = [];
-            res.forEach(elem => notesArray.push(elem));
-            console.log(notesArray);
-            console.log('this is findall res!---- \n', res)
-        });
-    res.render('index', {notesArray});
+            .then(reso => {
+                notesArray = [...reso];
+            });
+    resp.render('index', {notesArray});
 });
 
 module.exports = router;
-

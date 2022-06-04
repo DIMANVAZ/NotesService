@@ -12,10 +12,11 @@ document.addEventListener('click',()=>{
             body: JSON.stringify({type:'noteText', data:newNoteText})
         }).then(response => {
             if (response.ok){
-                console.log('fetch resp TEXT from front is ok');
+                console.log('fetch resp ADD from front is ok');
              }
         }).catch(err => console.log(err))
     }
+
     if(elemClasses.indexOf('delete-note-button') > -1){
         const id = event.target.id;
 
@@ -24,7 +25,7 @@ document.addEventListener('click',()=>{
             body: JSON.stringify({type:'buttonId', data:id})
         }).then(response => {
             if (response.ok){
-                console.log('fetch resp ID from front is ok');
+                console.log('fetch resp DEL from front is ok');
             }
         }).catch(err => console.log(err))
     }
