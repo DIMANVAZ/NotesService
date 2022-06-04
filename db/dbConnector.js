@@ -3,7 +3,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('postgres://postgres:root@localhost:5432/AllNotes', {
     dialect: 'postgres'
 });
-console.log('-----module is executed-------')
+
 const Note = sequelize.define('Note', {
     // Model attributes are defined here
     text: {
@@ -16,16 +16,7 @@ const Note = sequelize.define('Note', {
 });
 
 (async () => {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
 })();
 
-async function writeNote(message){
-    Note.create({
-        text: message
-    })
-        .then(res => console.log('---success---\n'))
-        .catch(err => console.log(err))
-}
-
-
-module.exports = {sequelize, writeNote};
+module.exports = {Note};

@@ -1,15 +1,22 @@
 extends head
 
 block content
-    form(id="uploadForm" enctype="application/x-www-form-urlencoded" action="/" method="POST")
+    form(id="newNoteForm" enctype="application/x-www-form-urlencoded")
         h1(class="h3 mb-3 fw-normal") Добавить заметку
         div(class="form-floating")
-            input(type="text" name="noteText" class="form-control" id="noteText")
-            button(class="w-100 btn btn-lg btn-primary" type="submit") Добавить
+            input(type="text" name="newNoteText" class="form-control" id="newNoteText")
+            button(id="sendNoteButton" class="w-100 btn btn-lg btn-primary" type="submit") Добавить
 
-    ul
+    table.table
         each note in notesArray
-            li #{note}
+            tr
+                td(class="col-md-10") #{note.dataValues.text}
+                td
+                    button(id=`${note.dataValues.id}` class="btn btn-lg btn-danger delete-note-button") Удалить
 
-
+    script(src='./javascripts/domHandler.js')
+style.
+    body {
+    background-color: red;
+    }
 
