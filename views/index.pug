@@ -1,11 +1,11 @@
 extends head
 
 block content
-    form(id="newNoteForm" enctype="application/x-www-form-urlencoded")
-        h1(class="h3 mb-3 fw-normal") Добавить заметку
+    form(id="newNoteForm" enctype="application/x-www-form-urlencoded" method="POST")
+        h1(class="h4 mb-3 fw-normal") Добавить заметку (макс. 255 символов)
         div(class="form-floating")
-            input(type="text" name="newNoteText" class="form-control" id="newNoteText")
-            button(id="sendNoteButton" class="w-100 btn btn-lg btn-primary" type="submit") Добавить
+            input(type="text" name="newNoteText" class="form-control" id="newNoteText" placeholder="введите текст заметки")
+            button(id="sendNoteButton" class="w-100 btn btn-lg btn-primary add-note-button" type="submit") Добавить
 
     table.table
         each note in notesArray
@@ -15,8 +15,13 @@ block content
                     button(id=`${note.dataValues.id}` class="btn btn-lg btn-danger delete-note-button") Удалить
 
     script(src='./javascripts/domHandler.js')
-style.
-    body {
-    background-color: red;
-    }
+
+    style.
+        body {
+        background-color: blanchedalmond;
+        }
+        table {
+        margin-top:10px;
+        }
+
 
