@@ -1,27 +1,44 @@
-extends head
+include head
+div
+    form(id="newNoteForm" enctype="application/json" class="main-form")
+        label(class="form-label" for="newNoteText" )  Добавить заметку
+        input(class="form-control" type="text"  id="newNoteText")
+        button(class="btn btn-md btn-success add-note-button") Добавить
 
-block content
-    form(id="newNoteForm" enctype="application/json")
-        h1(class="h4 mb-3 fw-normal") Добавить заметку (макс. 255 символов)
-        div(class="form-floating")
-            input(type="text" name="newNoteText" class="form-control" id="newNoteText" placeholder="введите текст заметки")
-            button(id="sendNoteButton" class="w-100 btn btn-lg btn-primary add-note-button") Добавить
-
-    table.table
+    div(class="all-records")
         each note in notesArray
-            tr
-                td(class="col-md-10") #{note.dataValues.text}
-                td
-                    button(id=`${note.dataValues.id}` class="btn btn-lg btn-danger delete-note-button") Удалить
+            div(class="one-record ")
+                div(class="text-field border border-secondary") #{note.dataValues.text}
+                div(class="")
+                    button(id=`${note.dataValues.id}` class="btn btn-sm btn-danger delete-note-button") Удалить
 
     script(src='./javascripts/domHandler.js')
 
     style.
-        body {
-        background-color: blanchedalmond;
+        .main-form{
+            margin-bottom: 10px;
         }
-        table {
-        margin-top:10px;
+        .one-record{
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .all-records{
+            display: flex;
+            flex-direction: column;
+        }
+        .text-field{
+            padding:5px;
+        }
+        button{
+            margin-top: 5px;
         }
 
 
+
+//div.table-responsive
+//    table.table.table-striped.table-bordered.align-middle
+//        each note in notesArray
+//            tr
+//                td #{note.dataValues.text}
+//                td
+//                    button(id=`${note.dataValues.id}` class="btn btn-lg btn-danger delete-note-button") Удалить

@@ -7,7 +7,7 @@ const sequelize = new Sequelize('postgres://postgres:root@localhost:5432/AllNote
 const Note = sequelize.define('Note', {
     // Model attributes are defined here
     text: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
         // allowNull defaults to true
     }
