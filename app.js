@@ -45,8 +45,8 @@ exP.post('/add',(req,res) => {
 exP.post('/delete',(req,res) => {
     const id = req.body.data;
     Note.destroy({where: { id: id} })
-        .then(() => Note.findAll())
-        .then((reso) => {notesArray = [...reso]})
-        .then(() => res.render('index', { notesArray}))
+        .then(() => res.redirect(301,'/'))
+        // .then((reso) => {notesArray = [...reso]})
+        // .then(() => res.render('index', { notesArray}))
         .catch((err) => console.log('Create error:', err));
 })

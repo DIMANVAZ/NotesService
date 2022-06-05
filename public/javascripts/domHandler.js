@@ -14,6 +14,7 @@ document.addEventListener('click',()=>{
             headers: {'Content-Type': 'application/json;charset=utf-8'}
         }).then(response => {
             if (response.ok){
+                window.location.reload();
                 console.log('fetch resp ADD from front is ok');
              }
         }).catch(err => console.log(err))
@@ -28,6 +29,7 @@ document.addEventListener('click',()=>{
             headers: {'Content-Type': 'application/json;charset=utf-8'}
         }).then(response => {
             if (response.ok){
+                window.location.reload();
                 console.log('fetch resp DEL from front is ok');
             }
         }).catch(err => console.log(err))
