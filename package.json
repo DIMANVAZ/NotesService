@@ -1,19 +1,25 @@
 {
   "name": "notesservice",
-  "version": "0.0.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "refresh",
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DIMANVAZ/NotesService.git"
+  },
+  "author": "ayrat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DIMANVAZ/NotesService/issues"
+  },
+  "homepage": "https://github.com/DIMANVAZ/NotesService#readme",
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
-    "nodemon": "^2.0.16",
+    "express": "^4.18.1",
     "pg": "^8.7.3",
-    "pug": "2.0.0-beta11",
+    "pug": "^3.0.2",
     "sequelize": "^6.20.1",
     "sqlite3": "^5.0.8"
   }

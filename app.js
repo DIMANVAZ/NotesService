@@ -1,41 +1,52 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let express = require('express');
+let exP = express();
+const fs = require("fs");
+//const body_parser = require('body-parser'); //парсить данные из формы
+//const cookieParser = require('cookie-parser');
+//const bcrypt = require('bcrypt');
 
-var indexRouter = require('./routes/index');
-var logonRouter = require('./routes/logon');
+/* запуск сервера */
+const port = process.env.PORT || 4000;
+exP.listen(port,()=>{console.log(`server's listening on port ${port}`)});
 
-var app = express();
+/* задаём папку со статикой */
+exP.use(express.static('public'));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+/* задаём метод чтения ответа ?!?!?! а-ля body parser */
+exP.use(express.json());
+//exP.use(body_parser.urlencoded({extended:true})); //парсить данные из формы
+//exP.use(cookieParser());
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+/* задаём шаблонизатор */
+exP.set('view engine','pug');
 
-app.use('/', indexRouter);
-app.use('/logon', logonRouter);
+const {Note} = require('./db/dbConnector.js');
+let notesArray = [{
+    dataValues: {
+        id: 999,
+        text: 'Дефолтная заметка! Notes Array',
+        createdAt: '2022-06-03T21:31:02.215Z',
+        updatedAt: '2022-06-03T21:31:02.215Z'
+    }}];
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+exP.get('/',(req,res) => {
+    Note.findAll().then(records => res.render('index',{notesArray:[...records]}))
+})
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+exP.post('/add',(req,res) => {
+    const note = req.body.data;
+    Note.create({text: note || 'Вы создали пустую заметку!'})
+        .then(() => Note.findAll())
+        .then((reso) => {notesArray = [...reso]})
+        .then(() => res.render('index', { notesArray}))
+        .catch((err) => console.log('Create error:', err));
+})
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
+exP.post('/delete',(req,res) => {
+    const id = req.body.data;
+    Note.destroy({where: { id: id} })
+        .then(() => Note.findAll())
+        .then((reso) => {notesArray = [...reso]})
+        .then(() => res.render('index', { notesArray}))
+        .catch((err) => console.log('Create error:', err));
+})

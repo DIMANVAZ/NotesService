@@ -1,34 +1,38 @@
-const url = 'http://localhost:4000/';
+const delUrl = 'http://localhost:4000/delete';
+const addUrl = 'http://localhost:4000/add';
 
 document.addEventListener('click',()=>{
     const elemClasses = [...event.target.classList];
 
+    // add
     if(elemClasses.indexOf('add-note-button') > -1){
-        //event.preventDefault(); //может помешать автообновлению!
         const newNoteText = document.getElementById('newNoteText').value;
-
-        fetch(url,{
+        //event.preventDefault()
+        fetch(addUrl,{
             method:'POST',
-            body: JSON.stringify({type:'noteText', data:newNoteText})
+            body: JSON.stringify({type:'noteText', data:newNoteText}),
+            headers: {'Content-Type': 'application/json;charset=utf-8'}
         }).then(response => {
             if (response.ok){
                 console.log('fetch resp ADD from front is ok');
              }
         }).catch(err => console.log(err))
     }
-
-    if(elemClasses.indexOf('delete-note-button') > -1){
+    // delete
+    else if(elemClasses.indexOf('delete-note-button') > -1){
         const id = event.target.id;
-
-        fetch(url,{
+        //event.preventDefault()
+        fetch(delUrl,{
             method:'POST',
-            body: JSON.stringify({type:'buttonId', data:id})
+            body: JSON.stringify({type:'buttonId', data:id}),
+            headers: {'Content-Type': 'application/json;charset=utf-8'}
         }).then(response => {
             if (response.ok){
                 console.log('fetch resp DEL from front is ok');
             }
         }).catch(err => console.log(err))
     }
+    else console.log('neither add button nor remove button');
 })
 
 
