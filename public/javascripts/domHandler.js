@@ -1,6 +1,7 @@
 const delUrl = 'http://localhost:4000/delete';
 const addUrl = 'http://localhost:4000/add';
 
+// ОТРЕФАКТОРИТЬ НА ЧЕЛОВЕЧЕСКИЙ МАНЕР - чтобы не слушать весь документ
 document.addEventListener('click',()=>{
     const elemClasses = [...event.target.classList];
 
