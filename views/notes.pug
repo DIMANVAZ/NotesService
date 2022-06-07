@@ -6,8 +6,10 @@ div(id="mainDiv")
         button(class="btn btn-md btn-success add-note-button") Добавить
 
     div(class="all-records")
+        if !notesArray.length
+            p Заметок нет
         each note in notesArray
-            div(class="one-record ")
+            div(class="one-record")
                 div(class="text-field border border-secondary") #{note.dataValues.text}
                 div(class="")
                     button(id=`${note.dataValues.id}` class="btn btn-sm btn-danger delete-note-button") Удалить

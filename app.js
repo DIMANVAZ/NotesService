@@ -27,19 +27,21 @@ exP.set('view engine','pug');
 const {Note} = require('./db/dbConnector.js');
 
 exP.get('/notes',(req,res) => {
-    Note.findAll().then(records => res.render('notes',{notesArray:[...records]}))
+    Note.findAll().then(records => {
+        res.render('notes', {notesArray: [...records]});
+    })
 })
 
 exP.post('/add',(req,res) => {
     const note = req.body.data;
     Note.create({text: note || 'Вы создали пустую заметку!'})
-        .then(() => res.redirect(301,'/'))
+        .then(() => res.redirect(301,'/notes'))
         .catch((err) => console.log('Create error:', err));
 })
 
 exP.post('/delete',(req,res) => {
     const id = req.body.data;
     Note.destroy({where: { id: id} })
-        .then(() => res.redirect(301,'/'))
+        .then(() => res.redirect(301,'/notes'))
         .catch((err) => console.log('Create error:', err));
 })
