@@ -20,10 +20,14 @@ exP.use(express.json());
 /* задаём шаблонизатор */
 exP.set('view engine','pug');
 
+//есть /notes, /add, /delete
+// добавить может /username/ перед этим?
+// и 4000/login ? а потом редиректить на 4000/user/notes ?
+
 const {Note} = require('./db/dbConnector.js');
 
-exP.get('/',(req,res) => {
-    Note.findAll().then(records => res.render('index',{notesArray:[...records]}))
+exP.get('/notes',(req,res) => {
+    Note.findAll().then(records => res.render('notes',{notesArray:[...records]}))
 })
 
 exP.post('/add',(req,res) => {

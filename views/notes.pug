@@ -1,5 +1,5 @@
 include head
-div
+div(id="mainDiv")
     form(id="newNoteForm" enctype="application/json" class="main-form")
         label(class="form-label" for="newNoteText" )  Добавить заметку
         input(class="form-control" type="text"  id="newNoteText")
@@ -32,13 +32,3 @@ div
         button{
             margin-top: 5px;
         }
-
-
-
-//div.table-responsive
-//    table.table.table-striped.table-bordered.align-middle
-//        each note in notesArray
-//            tr
-//                td #{note.dataValues.text}
-//                td
-//                    button(id=`${note.dataValues.id}` class="btn btn-lg btn-danger delete-note-button") Удалить
