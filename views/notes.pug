@@ -1,8 +1,8 @@
 include head
 div(id="mainDiv")
     form(id="newNoteForm" enctype="application/json" class="main-form")
-        label(class="form-label" for="newNoteText" )  Добавить заметку
-        input(class="form-control" type="text"  id="newNoteText")
+        label(class="form-label" for="newNoteText") Добавить заметку
+        input(class="form-control" type="text" name="newNoteText" id="newNoteText" placeholder="...введите текст заметки")
         button(class="btn btn-md btn-success add-note-button") Добавить
 
     div(class="all-records")
@@ -10,7 +10,7 @@ div(id="mainDiv")
             p Заметок нет
         each note in notesArray
             div(class="one-record")
-                div(class="text-field border border-secondary") #{note.dataValues.text}
+                div(class="text-field border") #{note.dataValues.text}
                 div(class="")
                     button(id=`${note.dataValues.id}` class="btn btn-sm btn-danger delete-note-button") Удалить
 
@@ -22,7 +22,7 @@ div(id="mainDiv")
         }
         .one-record{
             margin-top: 5px;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
         .all-records{
             display: flex;
@@ -33,4 +33,10 @@ div(id="mainDiv")
         }
         button{
             margin-top: 5px;
+        }
+        label{
+            font-size: 1rem;
+        }
+        .form-control{
+            margin-bottom:5px;
         }
