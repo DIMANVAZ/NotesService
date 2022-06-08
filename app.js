@@ -7,7 +7,11 @@ const fs = require("fs");
 
 /* запуск сервера */
 const port = process.env.PORT || 4000;
-exP.listen(port,()=>{console.log(`server's listening on port ${port}`)});
+(()=>{
+    try{
+        exP.listen(port,()=>{console.log(`server's listening on port ${port}`)});
+    } catch(err){console.log(err)}
+})()
 
 /* задаём папку со статикой */
 exP.use(express.static('public'));

@@ -4,6 +4,7 @@ const editUrl = 'http://localhost:4000/edit';
 
 const mainDiv = document.getElementById('mainDiv');
 mainDiv.addEventListener('click',()=>{
+    console.log(window.location.search)
     const elemClasses = [...event.target.classList];
     // add
     if(elemClasses.indexOf('add-note-button') > -1){
